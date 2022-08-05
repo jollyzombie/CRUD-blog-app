@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <section>
       <Col className='d-flex justify-content-end mb-3'>
-        <Button variant='outline-primary' href={'/post/add'}>
+        <Button variant='outline-info' href={'/post/add'}>
           Add post
         </Button>
       </Col>

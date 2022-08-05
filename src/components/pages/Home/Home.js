@@ -1,9 +1,9 @@
-import { Container, Button, Col } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap';
 import Posts from '../../features/Posts/Posts';
 
 const Home = () => {
   return (
-    <Container>
+    <section>
       <Col className='d-flex justify-content-end mb-3'>
         <Button variant='outline-primary' href={'/post/add'}>
           Add post
@@ -11,7 +11,7 @@ const Home = () => {
       </Col>
 
       <Posts />
-    </Container>
+    </section>
   );
 };
 

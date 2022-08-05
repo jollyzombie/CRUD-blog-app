@@ -24,7 +24,7 @@ const initialState = {
       publishedDate: '11-02-2022',
       author: 'Dustin Henderson',
     },
-  ], //wszystkie posty
+  ], //all posts
 };
 
 export default initialState;

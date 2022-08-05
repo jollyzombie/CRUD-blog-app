@@ -6,11 +6,11 @@ const Posts = () => {
   const postsData = useSelector(getAllPosts);
 
   return (
-    <section>
-      <Row className='justify-content-md-center'>
+ 
+      <Row>
         {postsData.map((post) => (
           <Col key={post.id}>
-            <Card className='rounded' style={{ width: '25rem' }}>
+            <Card className='rounded mb-4' style={{ width: '25rem' }}>
               <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
                 <Card.Text>
@@ -20,15 +20,15 @@ const Posts = () => {
                   <b>Published:</b> {post.publishedDate}
                 </Card.Text>
                 <Card.Text>{post.shortDescription}</Card.Text>
-                <Card.Link href={'/post/' + post.id} as={Button}>
+                <Button href={'/post/' + post.id}>
                   Read more
-                </Card.Link>
+                </Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-    </section>
+   
   );
 };
 

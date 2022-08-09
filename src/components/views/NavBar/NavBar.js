@@ -8,7 +8,7 @@ const NavBar = () => {
   return (
     <Navbar bg="primary" variant="dark" expand="lg" className="mt-4 mb-4 rounded">
       <Container>
-        <Navbar.Brand href='/'>Blog.app</Navbar.Brand>
+        <Navbar.Brand as={NavLink} to='/'>Blog.app</Navbar.Brand>
         <Navbar.Toggle />
         <Nav className='justify-content-end'>
           <Nav.Link as={NavLink} to='/'>

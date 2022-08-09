@@ -1,6 +1,7 @@
 import { Card, Row, Button, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { getAllPosts } from '../../../redux/postsRedux';
+import { Link } from 'react-router-dom';
 
 const Posts = () => {
   const postsData = useSelector(getAllPosts);
@@ -19,7 +20,9 @@ const Posts = () => {
                 <b>Published:</b> {post.publishedDate}
               </Card.Text>
               <Card.Text>{post.shortDescription}</Card.Text>
-              <Button href={'/post/' + post.id}>Read more</Button>
+              <Button as={Link} to={'/post/' + post.id}>
+                Read more
+              </Button>
             </Card.Body>
           </Card>
         </Col>

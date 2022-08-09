@@ -1,9 +1,12 @@
+import AddPostForm from "../../common/AddPostForm/AddPostForm";
+import { Container } from 'react-bootstrap';
+
 const PostAdd = () => {
+
   return (
-    <div>
-      <h1>Post Add</h1>
-      <p>Lorem Impsum</p>
-    </div>
+    <Container>
+      <AddPostForm />
+    </Container>
   );
 };
 

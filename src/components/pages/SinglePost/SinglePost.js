@@ -1,13 +1,25 @@
 import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { getPostById } from '../../../redux/postsRedux';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { getPostById, removePost } from '../../../redux/postsRedux';
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 
 const SinglePost = () => {
   const { postId } = useParams();
-
   const postData = useSelector((state) => getPostById(state, postId));
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const dispatch = useDispatch();
+
+  const handleRemove = (e) => {
+    e.preventDefault();
+    dispatch(removePost(postData.id));
+  };
 
   if (!postData) return <Navigate to='/' />;
   else
@@ -29,13 +41,31 @@ const SinglePost = () => {
 
           <Col md={4} align='right' className='mx-2'>
             <Link to={'/post/edit/' + postId}>
-              <Button variant='outline-info' className='mx-1'>Edit</Button>
+              <Button variant='outline-info' className='mx-1'>
+                Edit
+              </Button>
             </Link>
-            <Link to={'/'}>
-              <Button variant='outline-danger' className='mx-1'>Delete</Button>
-            </Link>
+
+            <Button variant='outline-danger' className='mx-1' onClick={handleShow}>
+              Delete
+            </Button>
           </Col>
         </Row>
+
+        <Modal show={show} onHide={handleClose} animation={false}>
+          <Modal.Header closeButton>
+            <Modal.Title>Are you sure?</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant='danger' onClick={handleRemove}>
+              Remove
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     );
 };

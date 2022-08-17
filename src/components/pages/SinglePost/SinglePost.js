@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { getPostById, removePost } from '../../../redux/postsRedux';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import { dateToStr } from '../../../utils/dateToStr';
 
 const SinglePost = () => {
   const { postId } = useParams();
@@ -33,14 +34,14 @@ const SinglePost = () => {
                 <strong>Author:</strong> {postData.author}
               </p>
               <p>
-                <strong>Published:</strong> {postData.publishedDate}
+                <strong>Published:</strong> {dateToStr(postData.publishedDate)}
               </p>
-              <p>{postData.content}</p>
+              <p dangerouslySetInnerHTML={{ __html: postData.content }} />
             </article>
           </Col>
 
           <Col md={4} align='right' className='mx-2'>
-            <Link to={'/post/edit/' + postId}>
+            <Link to={`/post/${postId}/edit`}>
               <Button variant='outline-info' className='mx-1'>
                 Edit
               </Button>

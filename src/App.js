@@ -17,9 +17,9 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/post/:postId' element={<SinglePost />} />
           <Route path='/post/add' element={<PostAdd />} />
-          <Route path='/post/edit/:postId' element={<PostEdit />} />
+          <Route path='/post/:postId' element={<SinglePost />} />
+          <Route path='/post/:postId/edit' element={<PostEdit />} />
           <Route path='/about' element={<About />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>

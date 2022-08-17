@@ -3,5 +3,5 @@ export const dateToStr = (publishedDate) => {
   const mm = String(publishedDate.getMonth() + 1).padStart(2, '0'); //January is 0!
   const yyyy = publishedDate.getFullYear();
 
-  return dd + '/' + mm + '/' + yyyy;
+  return yyyy + '/' + mm + '/' + dd;
 };

@@ -18,6 +18,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
     e.preventDefault();
     action({ title, author, publishedDate, shortDescription, content, id });
   };
+
   return (
     <Row>
       <Form onSubmit={handleSubmit}>
@@ -38,10 +39,11 @@ const PostForm = ({ id, action, actionText, ...props }) => {
             onChange={(e) => setAuthor(e.target.value)}
           />
 
-          <Form.Label className='mt-3'>
-            Published
-          </Form.Label>
-          <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
+          <Form.Label className='mt-3'>Published</Form.Label>
+          <DatePicker
+            selected={publishedDate ? new Date(publishedDate) : new Date()}
+            onChange={(date) => setPublishedDate(date)}
+          />
         </Form.Group>
 
         <Form.Group>

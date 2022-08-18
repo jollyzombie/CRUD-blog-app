@@ -4,13 +4,12 @@ import { getAllPosts } from '../../../redux/postsRedux';
 import { Link } from 'react-router-dom';
 import { dateToStr } from '../../../utils/dateToStr';
 
-
 const Posts = () => {
   const postsData = useSelector(getAllPosts);
 
   return (
     <Row>
-      {postsData.map((post) => (
+      {postsData.map((post) => {console.log(post); return (
         <Col key={post.id}>
           <Card className='rounded mb-4' style={{ width: '26rem' }}>
             <Card.Body>
@@ -28,7 +27,7 @@ const Posts = () => {
             </Card.Body>
           </Card>
         </Col>
-      ))}
+      )})}
     </Row>
   );
 };

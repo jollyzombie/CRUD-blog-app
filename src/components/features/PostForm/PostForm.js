@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Row, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 
 import ReactQuill from 'react-quill';
 import DatePicker from 'react-datepicker';
@@ -13,49 +14,78 @@ const PostForm = ({ id, action, actionText, ...props }) => {
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
+  const [contentError, setContentError] = useState(false);
+  const [dateError, setDateError] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    action({ title, author, publishedDate, shortDescription, content, id });
+  const {
+    register,
+    handleSubmit: validate,
+    formState: { errors },
+  } = useForm();
+
+  const handleSubmit = () => {
+    setContentError(!content);
+    setDateError(!publishedDate);
+    if (content && publishedDate) {
+      action({ title, author, publishedDate, shortDescription, content });
+    }
   };
 
   return (
     <Row>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className='mb-3 w-75'>
+      <Form onSubmit={validate(handleSubmit)}>
+        <Form.Group className='w-75'>
           <Form.Label className='mt-3'>Title</Form.Label>
           <Form.Control
+            {...register('title', { required: true, minLength: 3 })}
             value={title}
             type='text'
-            placeholder='Enter title'
+            placeholder='Enter post title'
             onChange={(e) => setTitle(e.target.value)}
           />
+          {errors.title && (
+            <small className='d-block form-text text-danger mt-2'>Title is too short (min. 3 characters)</small>
+          )}
+        </Form.Group>
 
+        <Form.Group className='w-75'>
           <Form.Label className='mt-3'>Author</Form.Label>
           <Form.Control
+            {...register('author', { required: true, minLength: 3 })}
             type='text'
-            placeholder={'Enter author' || props.title}
+            placeholder={'Enter post author' || props.title}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
-
-          <Form.Label className='mt-3'>Published</Form.Label>
-          <DatePicker
-            selected={publishedDate ? new Date(publishedDate) : new Date()}
-            onChange={(date) => setPublishedDate(date)}
-          />
+          {errors.author && (
+            <small className='d-block form-text text-danger mt-2'>Author is too short (min. 3 characters)</small>
+          )}
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Short description</Form.Label>
+          <Form.Label className='mt-3'>Published</Form.Label>
+          <DatePicker
+          selected={publishedDate}
+          onChange={(date) => setPublishedDate(date)} />
+          {dateError && <small className='d-block form-text text-danger mt-2'>This field is required</small>}
+        </Form.Group>
 
+        <Form.Group>
+          <Form.Label className='mt-3'>Short description</Form.Label>
           <Form.Control
+            {...register('shortDescription', { required: true, minLength: 20 })}
             as='textarea'
             placeholder='Add short description here'
             value={shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
           />
+          {errors.shortDescription && (
+            <small className='d-block form-text text-danger mt-2'>
+              Short description is too short (min. 20 characters)
+            </small>
+          )}
         </Form.Group>
+
         <Form.Group>
           <Form.Label className='mt-3'>Main content</Form.Label>
 
@@ -66,6 +96,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
             value={content}
             onChange={setContent}
           />
+          {contentError && <small className='d-block form-text text-danger mt-2'>Content can't be empty</small>}
         </Form.Group>
         <Button variant='primary' type='submit' className='mt-3'>
           {actionText}

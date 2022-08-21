@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Row, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { getAllCategories } from '../../../redux/categoriesRedux';
 
 import ReactQuill from 'react-quill';
 import DatePicker from 'react-datepicker';
@@ -8,14 +10,19 @@ import DatePicker from 'react-datepicker';
 import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 const PostForm = ({ id, action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
+  const [category, setCategory] = useState('');
+
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
+
+  const categories = useSelector((state) => getAllCategories(state));
 
   const {
     register,
@@ -27,7 +34,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
     setContentError(!content);
     setDateError(!publishedDate);
     if (content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content });
+      action({ title, author, publishedDate, shortDescription, content, category });
     }
   };
 
@@ -64,10 +71,20 @@ const PostForm = ({ id, action, actionText, ...props }) => {
 
         <Form.Group>
           <Form.Label className='mt-3'>Published</Form.Label>
-          <DatePicker
-          selected={publishedDate}
-          onChange={(date) => setPublishedDate(date)} />
+          <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
           {dateError && <small className='d-block form-text text-danger mt-2'>This field is required</small>}
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Category</Form.Label>
+          <Form.Select aria-label='Select category' onChange={(e) => setCategory(e.target.value)}>
+            <option>Select category...</option>
+            {categories.map((category) => (
+              <option value={category.name} key={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group>

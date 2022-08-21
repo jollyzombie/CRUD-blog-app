@@ -33,10 +33,14 @@ const SinglePost = () => {
               <p className='mb-0'>
                 <strong>Author:</strong> {postData.author}
               </p>
-              <p>
+              <p className='mb-0'>
                 <strong>Published:</strong> {dateToStr(postData.publishedDate)}
               </p>
+              <p className='mb-5'>
+                <strong>Category:</strong> {postData.category}
+              </p>
               <p dangerouslySetInnerHTML={{ __html: postData.content }} />
+
             </article>
           </Col>
 

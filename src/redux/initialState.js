@@ -7,6 +7,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('09-02-2021'),
       author: 'Eddie Munson',
+      category: 'Music',
     },
     {
       id: '2',
@@ -15,6 +16,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('03-02-2022'),
       author: 'Max Mayfield',
+      category: 'Sport',
     },
     {
       id: '3',
@@ -23,8 +25,14 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('05-05-2021'),
       author: 'Dustin Henderson',
+      category: 'News',
     },
-  ], //all posts
+  ],
+  categories: [
+    { id: 1, name: 'Sport' },
+    { id: 2, name: 'Movies' },
+    { id: 3, name: 'News' },
+  ],
 };
 
 export default initialState;

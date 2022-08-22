@@ -25,7 +25,7 @@ const App = () => {
           <Route path='/post/:postId/edit' element={<PostEdit />} />
           <Route path='/about' element={<About />} />
           <Route path='/categories' element={<Categories />} />
-          <Route path='/categories/:name' element={<SelectedCategory />} />
+          <Route path='/categories/:categoryId' element={<SelectedCategory />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
         <Footer />

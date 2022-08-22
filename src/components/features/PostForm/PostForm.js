@@ -10,14 +10,13 @@ import DatePicker from 'react-datepicker';
 import 'react-quill/dist/quill.snow.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
 const PostForm = ({ id, action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
   const [author, setAuthor] = useState(props.author || '');
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(props.category || '');
 
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
@@ -34,7 +33,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
     setContentError(!content);
     setDateError(!publishedDate);
     if (content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content, category });
+      action({ title, author, publishedDate, shortDescription, content, id, category });
     }
   };
 
@@ -80,11 +79,12 @@ const PostForm = ({ id, action, actionText, ...props }) => {
           <Form.Select aria-label='Select category' onChange={(e) => setCategory(e.target.value)}>
             <option>Select category...</option>
             {categories.map((category) => (
-              <option value={category.name} key={category.id}>
+              <option value={props.category} key={category.id}>
                 {category.name}
               </option>
             ))}
           </Form.Select>
+          {errors.category && <small className='d-block form-text text-danger mt-2'>This field is required</small>}
         </Form.Group>
 
         <Form.Group>
@@ -115,6 +115,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
           />
           {contentError && <small className='d-block form-text text-danger mt-2'>Content can't be empty</small>}
         </Form.Group>
+
         <Button variant='primary' type='submit' className='mt-3'>
           {actionText}
         </Button>

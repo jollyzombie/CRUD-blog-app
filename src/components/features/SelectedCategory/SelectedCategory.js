@@ -1,17 +1,17 @@
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPostByCategory } from '../../../redux/postsRedux';
 import { dateToStr } from '../../../utils/dateToStr';
 
 const SelectedCategory = () => {
-  const { name } = useParams();
-  const posts = useSelector((state) => getPostByCategory(state, name));
+  const { categoryId } = useParams();
+  const posts = useSelector((state) => getPostByCategory(state, categoryId));
 
   if (posts.length === 0)
     return (
       <div>
-        <h1>Category: {name}</h1>
+        <h1>Category: {categoryId}</h1>
         <p>No posts in this category</p>
       </div>
     );

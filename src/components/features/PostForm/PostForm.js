@@ -76,7 +76,11 @@ const PostForm = ({ id, action, actionText, ...props }) => {
 
         <Form.Group>
           <Form.Label>Category</Form.Label>
-          <Form.Select aria-label='Select category' onChange={(e) => setCategory(e.target.value)}>
+          <Form.Select
+            {...register('category', { required: true })}
+            aria-label='Select category'
+            onChange={(e) => setCategory(e.target.value)}
+          >
             <option>Select category...</option>
             {categories.map((category) => (
               <option value={props.category} key={category.id}>
@@ -84,7 +88,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
               </option>
             ))}
           </Form.Select>
-          {errors.category && <small className='d-block form-text text-danger mt-2'>This field is required</small>}
+          {errors.category && <small className='d-block form-text text-danger mt-2'>Please select category</small>}
         </Form.Group>
 
         <Form.Group>

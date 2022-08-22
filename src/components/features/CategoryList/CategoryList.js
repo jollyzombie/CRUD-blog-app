@@ -10,7 +10,7 @@ const CategoryList = () => {
     <ListGroup className='mt-5 mb-5'>
       {categories.map((category) => (
         <ListGroup.Item className='w-50' key={category.id}>
-          <Link key={category.id} to={'/categories/' + category.name}>
+          <Link key={category.id} to={'/categories/' + category.id}>
             <p>{category.name}</p>
           </Link>
         </ListGroup.Item>

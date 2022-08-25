@@ -16,7 +16,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
   const [publishedDate, setPublishedDate] = useState(props.publishedDate || '');
   const [shortDescription, setShortDescription] = useState(props.shortDescription || '');
   const [content, setContent] = useState(props.content || '');
-  const [category, setCategory] = useState(props.category || '');
+  const [categoryId, setCategoryId] = useState(props.categoryId || '');
 
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
@@ -33,7 +33,7 @@ const PostForm = ({ id, action, actionText, ...props }) => {
     setContentError(!content);
     setDateError(!publishedDate);
     if (content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content, id, category });
+      action({ title, author, publishedDate, shortDescription, content, id, categoryId });
     }
   };
 
@@ -77,18 +77,19 @@ const PostForm = ({ id, action, actionText, ...props }) => {
         <Form.Group>
           <Form.Label>Category</Form.Label>
           <Form.Select
-            {...register('category', { required: true })}
+            {...register('categoryId', { required: true })}
             aria-label='Select category'
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setCategoryId(Number(e.target.value))}
+            value={categoryId}
           >
             <option>Select category...</option>
             {categories.map((category) => (
-              <option value={props.category} key={category.id}>
+              <option value={category.id} key={category.id}>
                 {category.name}
               </option>
             ))}
           </Form.Select>
-          {errors.category && <small className='d-block form-text text-danger mt-2'>Please select category</small>}
+          {errors.categoryId && <small className='d-block form-text text-danger mt-2'>Please select category</small>}
         </Form.Group>
 
         <Form.Group>

@@ -2,13 +2,14 @@ import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { getPostById, removePost } from '../../../redux/postsRedux';
+import { getCategoryById, getPostById, removePost } from '../../../redux/postsRedux';
 import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import { dateToStr } from '../../../utils/dateToStr';
 
 const SinglePost = () => {
   const { postId } = useParams();
   const postData = useSelector((state) => getPostById(state, postId));
+  const category = useSelector((state) => getCategoryById(state, postData?.categoryId));
 
   const [show, setShow] = useState(false);
 
@@ -37,10 +38,9 @@ const SinglePost = () => {
                 <strong>Published:</strong> {dateToStr(postData.publishedDate)}
               </p>
               <p className='mb-5'>
-                <strong>Category:</strong> {postData.category}
+                <strong>Category:</strong> {category.name}
               </p>
               <p dangerouslySetInnerHTML={{ __html: postData.content }} />
-
             </article>
           </Col>
 

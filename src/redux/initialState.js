@@ -7,7 +7,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('09-02-2021'),
       author: 'Eddie Munson',
-      category: 'Music',
+      categoryId: 1,
     },
     {
       id: '2',
@@ -16,7 +16,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('03-02-2022'),
       author: 'Max Mayfield',
-      category: 'Sport',
+      categoryId: 2,
     },
     {
       id: '3',
@@ -25,7 +25,7 @@ const initialState = {
       content: 'Main content of the article',
       publishedDate: new Date('05-05-2021'),
       author: 'Dustin Henderson',
-      category: 'News',
+      categoryId: 3,
     },
   ],
   categories: [
